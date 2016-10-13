@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <title>首页</title>
+        <link rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/react.js"></script>
+        <script type="text/javascript" src="js/react-dom.js"></script>
+        <script type="text/javascript" src="js/babel-browser.min.js"></script>
+        <style>
+            body {
+                padding-top: 100px;
+            }
+
+            div.item {
+                margin-top: 5px;
+                margin-left: 25%;
+                margin-right: 25%;
+                padding: 5px;
+                border: 1px solid #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container0" class="item"></div>
+        <div id="container1" class="item"></div>
+        <div id="container2" class="item"></div>
+        <div id="container3" class="item"></div>
+        <div id="container4" class="item"></div>
+        <!--suppress JSAnnotator -->
+        <script type="text/babel">
+            ReactDOM.render(
+                <h1>Hello, world!</h1>,
+                document.getElementById('container0')
+            );
+
+            const names = ['Jack', 'Tom', 'Alice'];
+            ReactDOM.render(
+                <div>
+                    {
+                       names.map(function (name, key) {
+                           return <div key={key}>Hello, {name}</div>
+                       })
+                    }
+                </div>,
+                document.getElementById('container1')
+            );
+
+            class HelloMessage extends React.Component {
+                constructor(props) {
+                    super(props);
+                }
+                render() {
+                    return <h5>Hello, {this.props.name}</h5>
+                }
+            }
+            ReactDOM.render(
+                <HelloMessage name="John"/>,
+                document.getElementById('container2')
+            );
+
+            class InputState extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {enable: false};
+                    //this._handleClick = this._handleClick.bind(this);
+                    /*
+                    this._handleClick = (e) => {  //箭头函数自动bind(this)
+                        this.setState({enable: !this.state.enable});
+                    };
+                    */
+                }
+                componentWillMount() {
+                    console.log('*componentWillMount...' + this.state.enable);  //这些方法已默认bind(this),自定义方法，需要手动绑定
+                }
+                componentDidMount() {
+                    console.log('*componentDidMount...' + this.state.enable);
+                }
+                componentWillUnmount() {
+                    console.log('componentWillUnmount...');
+                }
+                _handleClick(e) {
+                    this.setState({enable: !this.state.enable});
+                    console.log(e.target.innerHTML);
+                    console.log(e.target);
+                }
+                render() {
+                    //注：onClick={e => this._handleClick(e)}, 使用箭头函数作为thunk函数，实现自动bind(this)功能
+                    return (
+                        <p>
+                            <input type="text" disabled={this.state.enable} />
+                            <button onClick={e => this._handleClick(e)}>Change State</button>
+                        </p>
+                    )
+                }
+            }
+            ReactDOM.render(
+                <InputState />,
+                document.getElementById('container3')
+            );
+
+            var InputStateOther = React.createClass(
+                {
+                    getDefaultProps() {  //返回的任何复杂对象将会在实例间共享，而不是每个实例拥有一份拷贝
+                        return {name: 1};
+                    },
+                    getInitialState() {
+                        return {enable: false, remove: false};
+                    },
+                    componentWillMount() {
+                        console.log('componentWillMount...');
+                    },
+                    componentDidMount() {
+                        console.log('componentDidMount...');
+                    },
+                    componentWillUpdate(nextProps, nextState) {
+                        console.log('componentWillUpdate: ' + JSON.stringify(nextProps) + ',' + JSON.stringify(nextState));
+                    },
+                    componentDidUpdate(prevProps, prevState) {
+                        console.log('componentDidUpdate: ' + JSON.stringify(prevProps) + ',' + JSON.stringify(prevState));
+                    },
+                    componentWillUnmount() {
+                        console.log('componentWillUnmount...');
+                    },
+                    componentWillReceiveProps(nextProps) {  //已加载组件收到新的参数时调用
+                        console.log('componentWillReceiveProps: ' + JSON.stringify(nextProps));
+                    },
+                    shouldComponentUpdate(nextProps, nextState) {  //组件判断是否重新渲染时调用
+                        console.log('shouldComponentUpdate: ' + JSON.stringify(nextProps) + ',' + JSON.stringify(nextState));
+                        return true;   //必须返回boolean,true表示可更新,false不更新
+                    },
+                    _handleClick(e) {
+                        this.setState({enable: !this.state.enable});
+                    },
+                    _removeOrAddClick(e) {
+                        this.setState({remove: !this.state.remove});
+                    },
+                    render() {
+                        let comp;
+                        if (!this.state.remove) {
+                            comp = (
+                                <p>
+                                    <input type="text" disabled={this.state.enable} name={this.props.name}/>
+                                    <button onClick={this._handleClick}>Change State</button>
+                                    <button onClick={this._removeOrAddClick}>Remove</button>
+                                </p>
+                            );
+                        } else {
+                            comp = (
+                                <p>
+                                    <button onClick={this._removeOrAddClick}>Add</button>
+                                </p>
+                            );
+                        }
+                        return comp;
+                    }
+                }
+            );
+            ReactDOM.render(
+                <InputStateOther />,
+                document.getElementById('container4')
+            );
+
+        </script>
+    </body>
+</html>
