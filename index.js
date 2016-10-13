@@ -20,13 +20,17 @@ import Message from './src/Message';
 
 //使用require导入css文件
 //css代码会包含到index.html文件中
-import './css/index.css';
+import './public/css/index.css';
+
+//加载图片, Base64字符串
+var img = require('./public/images/loading.gif');
 
 render(
     <div>
         <Hello />
         <br/>
         <Message name="This is Test!"/>
+        <img src={img}/>
     </div>,
     document.getElementById('root')
 );

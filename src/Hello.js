@@ -18,7 +18,7 @@ module.exports = function() {
 //ES6
 import React, {Component} from 'react';
 import config from '../conf/config';
-import css from '../css/hello.css';  //模块化加载css
+import css from '../public/css/hello.css';  //模块化加载css
 
 //定义一个组件
 class Hello extends Component {
