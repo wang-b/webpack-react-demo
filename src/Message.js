@@ -10,7 +10,7 @@ import React, {Component, PropTypes} from 'react';
 class Message extends Component {
     render() {
         return (
-            <button onClick={() => this._handleClick()} style={{padding: '10px'}}>
+            <button onClick={() => this._handleClick()} style={{margin: '10px'}}>
                 {this.props.name}
             </button>
         );

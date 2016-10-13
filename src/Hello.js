@@ -18,12 +18,13 @@ module.exports = function() {
 //ES6
 import React, {Component} from 'react';
 import config from '../conf/config';
+import css from '../css/hello.css';  //模块化加载css
 
 //定义一个组件
 class Hello extends Component {
     render() {
         return (
-            <button onClick={(e) => this._handleClick(e)} style={{padding: '10px'}}>
+            <button onClick={(e) => this._handleClick(e)} style={{margin: '10px'}} className={css.btn}>
                 <strong>React</strong>
                 ,{config.text}
             </button>

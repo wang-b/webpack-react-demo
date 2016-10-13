@@ -26,9 +26,25 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel' //提供ES6和JSX支持
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css?modules!postcss'
+            },
+            {
+                test: /\.less$/,
+                loader: 'style!css!less'
             }
         ]
     },
+
+    postcss: function () {
+        return [require('autoprefixer')];  //调用autoprefixer插件，对值自动添加前缀-webkit-等
+    },
+
+    plugins: [
+        new webpack.BannerPlugin('Copyright Flying Gli inc.')  //添加版权声名等文本信息
+    ],
 
     devServer: {
         contentBase: './build',  //本地服务器所加载页面所在目录

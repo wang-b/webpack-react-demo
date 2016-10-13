@@ -18,6 +18,10 @@ import {render} from 'react-dom';
 import Hello from './src/Hello';
 import Message from './src/Message';
 
+//使用require导入css文件
+//css代码会包含到index.html文件中
+import './css/index.css';
+
 render(
     <div>
         <Hello />
