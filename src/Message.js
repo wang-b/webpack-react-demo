@@ -11,7 +11,7 @@ class Message extends Component {
     render() {
         return (
             <button onClick={() => this._handleClick()} style={{margin: '10px'}}>
-                @@@{this.props.name}
+                {this.props.name}
             </button>
         );
     }
