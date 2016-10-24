@@ -5,5 +5,6 @@
 # NodeJS
 node_modules
 
-
+# MAC OS
+.DS_Store
 

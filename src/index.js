@@ -29,7 +29,8 @@ render(
     <div>
         <Hello />
         <br/>
-        <Message name="This is Test!!!!@@@@"/>
+        <p>12</p>
+        <Message name="This is Test!@@"/>
         <img src={img} />
     </div>,
     document.getElementById('root')

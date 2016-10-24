@@ -27,4 +27,3 @@ new WebpackDevServer(webpack(config), {
     }
     console.log('Listening at ' + host + ':' + port);
 });
-

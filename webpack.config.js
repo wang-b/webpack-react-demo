@@ -74,7 +74,9 @@ module.exports = {
 
     plugins: [
         new webpack.BannerPlugin('Copyright Flying Gli inc.'),  //添加版权声名等文本信息
-        new HtmlWebpackPlugin({
+        new webpack.HotModuleReplacementPlugin(),  //热加载插件
+        new HtmlWebpackPlugin({  //添加多个HtmlWebpackPlugin对象，用于生成多个页面
+            title: 'Webpack React Demo',
             favicon: path.resolve(APP_PATH, 'public/favicon.ico'),  //网站图标
             template: path.resolve(APP_PATH, 'index.html'),   //模板文件位置
             filename: 'index.html',  //生成文件存放路径及文件名，相对于output.path
@@ -85,7 +87,6 @@ module.exports = {
                 collapseWhitespace:false    //删除空白符与换行符
             }
         }),
-        new webpack.HotModuleReplacementPlugin(),  //热加载插件
         new webpack.optimize.OccurrenceOrderPlugin(),  //为组件分配ID，通过这个插件webpack可以分析和优先考虑使用最多的模块，并为它们分配最小的ID
         new webpack.optimize.UglifyJsPlugin(),  //压缩JS代码
         new ExtractTextWebpackPlugin('css/[name].css'),  //分离CSS和JS文件
